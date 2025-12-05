@@ -2,6 +2,9 @@ export const sample = (arr) => {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
+export const clsx = (...tokens) =>
+    tokens.filter(token => token && typeof token === 'string').join(' ')
+
 export const range = (start, end, step = 1) => {
   let output = [];
   if (typeof end === 'undefined') {

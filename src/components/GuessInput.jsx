@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function GuessInput({ onGuess }) {
+export default function GuessInput({ onGuess, ...delegated }) {
     const [guess, setGuess] = React.useState('')
     
     return (
@@ -14,10 +14,12 @@ export default function GuessInput({ onGuess }) {
         >
             <label htmlFor="guess-input">Enter guess:</label>
             <input
+                {...delegated}
                 id="guess-input"
                 value={guess}
                 pattern='[A-Z]{5}'
                 required
+                autoFocus
                 maxLength={5}
                 onChange={event => setGuess(event.target.value.toUpperCase())}
             />

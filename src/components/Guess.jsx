@@ -1,12 +1,15 @@
-export default function Guess({ children }) {
-    const letters = children
-        ? [...children]
-        : ['', '', '', '', '']
+import { checkGuess } from '../game-helpers'
+import { clsx } from '../utils'
+
+export default function Guess({ answer, children }) {
+    const boxes = typeof children === 'string'
+        ? checkGuess(children, answer)
+        : new Array(5).fill({})
 
     return (
         <p className="guess">
-            {letters.map((letter, index) => (
-                <span className="cell" key={index}>{letter}</span>
+            {boxes.map(({ letter = '', status } = {}, index) => (
+                <span className={clsx('cell', status)} key={index}>{letter}</span>
             ))}
         </p>
     )

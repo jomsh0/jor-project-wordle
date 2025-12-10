@@ -2,8 +2,8 @@ import React from 'react';
 
 function Header() {
   return (
-    <header>
-      <h1>Word Game</h1>
+    <header className="header">
+      <h1 className="title">Word Game</h1>
     </header>
   );
 }

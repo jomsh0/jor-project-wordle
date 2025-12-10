@@ -1,14 +1,13 @@
 import Game from '../Game';
 import Header from '../Header';
 
+import './styles.css'
+
 function App() {
   return (
-    <div className="wrapper">
+    <div className="game-wrapper-wrapper">
       <Header />
-
-      <div className="game-wrapper">
-        <Game />
-      </div>
+      <Game />
     </div>
   );
 }

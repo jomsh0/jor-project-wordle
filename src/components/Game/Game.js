@@ -16,14 +16,16 @@ function Game() {
   const [guesses, setGuesses] = React.useState([])
   const status = getStatus(guesses)
 
-  return <>
-    {status === 'won' && <HappyBanner numGuesses={guesses.length} />}
-    {status === 'lost' && <SadBanner />}
-    <GuessList guesses={guesses} answer={answer} />
-    <GuessInput disabled={status !== 'active'} onGuess={
-      guess => setGuesses([...guesses, guess])
-    } />
-  </>;
+  return (
+    <div className="game-wrapper">    
+      {status === 'won' && <HappyBanner numGuesses={guesses.length} />}
+      {status === 'lost' && <SadBanner />}
+      <GuessList guesses={guesses} answer={answer} />
+      <GuessInput disabled={status !== 'active'} onGuess={
+        guess => setGuesses([...guesses, guess])
+      } />
+    </div>
+  )
 }
 
 function getStatus(guesses) {

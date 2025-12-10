@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Josh Comeau <me@joshwcomeau.com>",
-  "main": "./index.js",
+  "module": "dist/App.js",
   "devDependencies": {
     "eslint": "8.49.0",
     "eslint-config-react-app": "7.0.1",
@@ -23,7 +23,7 @@
   "scripts": {
     "predev": "rimraf .parcel-cache dist",
     "dev": "parcel public/index.html",
-    "build": "parcel build public/index.html",
+    "build": "parcel build src/components/App/App.js",
     "new-component": "new-component"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead"

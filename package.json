@@ -4,25 +4,30 @@
   "private": true,
   "author": "Josh Comeau <me@joshwcomeau.com>",
   "module": "dist/App.js",
+  "targets": {
+    "app": {
+      "source": "public/index.html"
+    }
+  },
   "devDependencies": {
     "eslint": "8.49.0",
     "eslint-config-react-app": "7.0.1",
     "new-component": "5.0.2",
-    "parcel": "2.12.0",
-    "prettier": "2.6.2",
+    "parcel": "^2.16.3",
+    "prettier": "^3.7.4",
     "process": "^0.11.10",
     "rimraf": "5.0.1"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
   },
   "nonDependencies": {
     "process": "0.11.10"
   },
   "scripts": {
     "predev": "rimraf .parcel-cache dist",
-    "dev": "parcel public/index.html",
+    "dev": "parcel --target app",
     "build": "parcel build src/components/App/App.js",
     "new-component": "new-component"
   },

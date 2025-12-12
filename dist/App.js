@@ -97,10 +97,12 @@ function $c25ecea5d7a90986$export$2e2bcd8739ae039({ onGuess: onGuess, ...delegat
                 ...delegated,
                 id: "guess-input",
                 value: guess,
+                maxLength: 5,
+                minLength: 5,
                 pattern: "[A-Z]{5}",
                 required: true,
                 autoFocus: true,
-                maxLength: 5,
+                enterKeyHint: "done",
                 onChange: (event)=>setGuess(event.target.value.toUpperCase())
             })
         ]
@@ -164,10 +166,11 @@ function $486aae2b83203c5c$export$2e2bcd8739ae039({ answer: answer, children: ch
 
 
 
-function $5376c52ebd29c342$export$2e2bcd8739ae039({ guesses: _guesses, answer: answer }) {
+function $5376c52ebd29c342$export$2e2bcd8739ae039({ guesses: _guesses, answer: answer, ref: ref }) {
     const guesses = _guesses.slice(0, (0, $cc3efe53df664a72$export$5c6373d26cb292a9));
     const numBlanks = (0, $cc3efe53df664a72$export$5c6373d26cb292a9) - guesses.length;
     return /*#__PURE__*/ (0, $kyR4X$jsxs)("div", {
+        ref: ref,
         className: "guess-results",
         children: [
             guesses.map((guess, i)=>/*#__PURE__*/ (0, $kyR4X$jsx)((0, $486aae2b83203c5c$export$2e2bcd8739ae039), {
@@ -186,8 +189,16 @@ const $40e426ba79875e01$var$answer = (0, $4c225ee090a8f350$export$4812e460280c6e
 console.info({
     answer: $40e426ba79875e01$var$answer
 });
+// TODO: logic to detect whether mobile keyboard is obstructing game
+// (whether GuessList is fully visible)
+const $40e426ba79875e01$var$detectObstructed = (el)=>{
+    if (!el) return false;
+    const { top: top, height: height } = el.getBoundingClientRect();
+    return top + height < 0.75 * height;
+};
 function $40e426ba79875e01$var$Game() {
     const [guesses, setGuesses] = (0, $kyR4X$react).useState([]);
+    const gameRef = (0, $kyR4X$react).useRef(null);
     const status = $40e426ba79875e01$var$getStatus(guesses);
     return /*#__PURE__*/ (0, $kyR4X$jsxs)("div", {
         className: "game-wrapper",
@@ -198,14 +209,18 @@ function $40e426ba79875e01$var$Game() {
             status === 'lost' && /*#__PURE__*/ (0, $kyR4X$jsx)($40e426ba79875e01$var$SadBanner, {}),
             /*#__PURE__*/ (0, $kyR4X$jsx)((0, $5376c52ebd29c342$export$2e2bcd8739ae039), {
                 guesses: guesses,
-                answer: $40e426ba79875e01$var$answer
+                answer: $40e426ba79875e01$var$answer,
+                ref: gameRef
             }),
             /*#__PURE__*/ (0, $kyR4X$jsx)((0, $c25ecea5d7a90986$export$2e2bcd8739ae039), {
                 disabled: status !== 'active',
-                onGuess: (guess)=>setGuesses([
+                onGuess: (guess)=>{
+                    setGuesses([
                         ...guesses,
                         guess
-                    ])
+                    ]);
+                    if ($40e426ba79875e01$var$detectObstructed(gameRef.current)) document.activeElement.blur();
+                }
             })
         ]
     });

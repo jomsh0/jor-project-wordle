@@ -24,7 +24,7 @@
   },
   "scripts": {
     "predev": "rimraf .parcel-cache dist",
-    "dev": "parcel --target app",
+    "dev": "parcel --target app --dist-dir ./dist/app",
     "build": "parcel build src/components/App/App.js",
     "new-component": "new-component"
   },

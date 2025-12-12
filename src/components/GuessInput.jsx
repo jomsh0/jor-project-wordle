@@ -17,10 +17,12 @@ export default function GuessInput({ onGuess, ...delegated }) {
                 {...delegated}
                 id="guess-input"
                 value={guess}
+                maxLength={5}
+                minLength={5}
                 pattern='[A-Z]{5}'
                 required
                 autoFocus
-                maxLength={5}
+                enterKeyHint='done'
                 onChange={event => setGuess(event.target.value.toUpperCase())}
             />
         </form>

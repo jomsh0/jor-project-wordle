@@ -12,12 +12,7 @@ const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
-// TODO: logic to detect whether mobile keyboard is obstructing game
-// (whether GuessList is fully visible)
 const detectObstructed = (el) => {
-  if (!el) {
-    return false
-  }
   const { top, height } = el.getBoundingClientRect()
   return (top + height < 0.75 * height)
 }
@@ -36,8 +31,9 @@ function Game() {
       <GuessInput disabled={status !== 'active'} onGuess={
         guess => {
           setGuesses([...guesses, guess])
-          if (detectObstructed(gameRef.current)) {
+          if (gameRef.current && detectObstructed(gameRef.current)) {
             document.activeElement.blur()
+            gameRef.current.scrollIntoView()
           }
         }
       } />

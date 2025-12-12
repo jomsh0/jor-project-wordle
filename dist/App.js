@@ -189,10 +189,7 @@ const $40e426ba79875e01$var$answer = (0, $4c225ee090a8f350$export$4812e460280c6e
 console.info({
     answer: $40e426ba79875e01$var$answer
 });
-// TODO: logic to detect whether mobile keyboard is obstructing game
-// (whether GuessList is fully visible)
 const $40e426ba79875e01$var$detectObstructed = (el)=>{
-    if (!el) return false;
     const { top: top, height: height } = el.getBoundingClientRect();
     return top + height < 0.75 * height;
 };
@@ -219,7 +216,10 @@ function $40e426ba79875e01$var$Game() {
                         ...guesses,
                         guess
                     ]);
-                    if ($40e426ba79875e01$var$detectObstructed(gameRef.current)) document.activeElement.blur();
+                    if (gameRef.current && $40e426ba79875e01$var$detectObstructed(gameRef.current)) {
+                        document.activeElement.blur();
+                        gameRef.current.scrollIntoView();
+                    }
                 }
             })
         ]
